@@ -1,0 +1,45 @@
+package models
+
+import (
+	"GTODO/utils"
+
+	"gorm.io/gorm"
+)
+
+type User struct {
+	gorm.Model
+	UserID    int64  //用户ID
+	Name      string //姓名
+	Password  string //密码
+	Sex       int    //0-man  1-woman
+	Phone     string //电话
+	Email     string //邮箱
+	Indentity int    //身份 0-admin 1-user
+	Msging    int    //在办消息数
+	Msged     int    //办结消息数
+}
+
+func (user *User) Tablename() string {
+	return "users"
+}
+
+// 按用户名查找
+func FindUserByName(name string) User {
+	user := User{}
+	utils.DB.Where("name = ?", name).Find(&user)
+	return user
+}
+
+// 创建用户
+func CreateUser(user User) *gorm.DB {
+	return utils.DB.Create(&user)
+}
+
+func DeleteUser(user User) *gorm.DB {
+	return utils.DB.Delete(&user)
+}
+
+// 更新用户信息
+func UpdateUser(user User, password string, sex int, phone string, email string) *gorm.DB {
+	return utils.DB.Model(&user).Updates(map[string]interface{}{"password": password, "sex": sex, "phone": phone, "email": email})
+}

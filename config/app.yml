@@ -1,0 +1,10 @@
+mysql:
+ dsn: root:root1234@tcp(127.0.0.1:3306)/gtodo?charset=utf8mb4&parseTime=true&loc=Local
+ username: root
+ pwd: root1234
+ ip: 127.0.0.1
+ port: 3306
+ database: gtodo
+ charset: utf8mb4
+ parseTime: true
+ loc: Local

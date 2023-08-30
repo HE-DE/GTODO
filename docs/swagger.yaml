@@ -1,0 +1,118 @@
+info:
+  contact: {}
+paths:
+  /addmsgu:
+    get:
+      parameters:
+      - description: UserId
+        in: query
+        name: UserId
+        type: string
+      - description: Content
+        in: query
+        name: Content
+        type: string
+      responses: {}
+      summary: 添加消息(未指派)
+      tags:
+      - 消息模块
+  /deleteuser:
+    post:
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        type: string
+      - description: password
+        in: formData
+        name: password
+        type: string
+      responses: {}
+      summary: 删除用户信息
+      tags:
+      - 用户模块
+  /getuser:
+    get:
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      responses: {}
+      summary: 获取用户信息
+      tags:
+      - 用户模块
+  /login:
+    post:
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        type: string
+      - description: password
+        in: formData
+        name: password
+        type: string
+      responses: {}
+      summary: 登录
+      tags:
+      - 用户模块
+  /register:
+    post:
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        type: string
+      - description: password
+        in: formData
+        name: password
+        type: string
+      - description: phone
+        in: formData
+        name: phone
+        type: string
+      - description: sex
+        in: formData
+        name: sex
+        type: string
+      - description: email
+        in: formData
+        name: email
+        type: string
+      - description: indentity
+        in: formData
+        name: indentity
+        type: string
+      responses: {}
+      summary: 注册用户
+      tags:
+      - 用户模块
+  /updateuser:
+    post:
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        type: string
+      - description: password
+        in: formData
+        name: password
+        type: string
+      - description: phone
+        in: formData
+        name: phone
+        type: string
+      - description: sex
+        in: formData
+        name: sex
+        type: string
+      - description: email
+        in: formData
+        name: email
+        type: string
+      responses: {}
+      summary: 更新用户
+      tags:
+      - 用户模块
+swagger: "2.0"
