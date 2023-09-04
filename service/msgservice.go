@@ -88,3 +88,42 @@ func AddMessageByAdmin(c *gin.Context) {
 		"msg":  "success",
 	})
 }
+
+// UpdateInfoStatus
+// @Summary 更新消息的状态
+// @Tags 消息模块
+// @param InfoId query string false "InfoId"
+// @param Status query string false "Status"
+// @param UserId query string false "UserId"
+// @Router /updatemsg [get]
+func UpdateInfoStatus(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Query("InfoId"))
+	status, _ := strconv.Atoi(c.Query("Status"))
+	userId, _ := strconv.Atoi(c.Query("UserId"))
+	if status == 3 {
+		donetime := time.Now()
+		models.UpdateMessage(int64(id), status, donetime)
+		models.DeleteUserMsging(int64(id))
+		CreateTime := models.QueryMessage(int64(id))
+		umsged := models.User_Msged{
+			UserID:     int64(userId),
+			InfoID:     int64(id),
+			CreateTime: CreateTime,
+			DoneTime:   donetime,
+			DoingTime:  donetime.Sub(CreateTime),
+		}
+		models.AddUMsged(umsged)
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "处理成功",
+		})
+	} else {
+		models.UpdateMessage(int64(id), status, time.Now())
+		models.UpdateMsging(int64(id), status)
+
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "消息状态更新成功",
+		})
+	}
+}

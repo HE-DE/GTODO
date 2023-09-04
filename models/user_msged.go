@@ -1,6 +1,7 @@
 package models
 
 import (
+	"GTODO/utils"
 	"time"
 
 	"gorm.io/gorm"
@@ -17,4 +18,8 @@ type User_Msged struct {
 
 func (umed *User_Msged) Tablename() string {
 	return "user_msgeds"
+}
+
+func AddUMsged(umsged User_Msged) *gorm.DB {
+	return utils.DB.Create(&umsged)
 }

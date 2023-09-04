@@ -33,13 +33,18 @@ func DeleteMessage(Msg Message) *gorm.DB {
 }
 
 // 更新信息
-func UpdateMessage(Msg Message) *gorm.DB {
-	return utils.DB.Model(&Msg).Updates(Msg)
+func UpdateMessage(InfoId int64, status int, donetime time.Time) *gorm.DB {
+	msg := Message{}
+	utils.DB.Where("info_id = ?", InfoId).Find(&msg)
+	if status == 3 {
+		return utils.DB.Model(&msg).Updates(map[string]interface{}{"status": 3, "done_time": donetime})
+	}
+	return utils.DB.Model(&msg).Updates(map[string]interface{}{"status": status})
 }
 
 // 查询信息
-func QueryMessage(userId int64, AdminId int64, createTime time.Time) Message {
-	var message Message
-	utils.DB.Where("user_id = ? and admin_id = ? and create_time = ?", userId, AdminId, createTime).First(&message)
-	return message
+func QueryMessage(InfoId int64) time.Time {
+	msg := Message{}
+	utils.DB.Where("info_id = ?", InfoId).Find(&msg)
+	return msg.CreateTime
 }

@@ -178,6 +178,35 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/updatemsg": {
+            "get": {
+                "tags": [
+                    "消息模块"
+                ],
+                "summary": "更新消息的状态",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "InfoId",
+                        "name": "InfoId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Status",
+                        "name": "Status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "UserId",
+                        "name": "UserId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/updateuser": {
             "post": {
                 "tags": [

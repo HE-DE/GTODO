@@ -107,6 +107,25 @@ paths:
       summary: 注册用户
       tags:
       - 用户模块
+  /updatemsg:
+    get:
+      parameters:
+      - description: InfoId
+        in: query
+        name: InfoId
+        type: string
+      - description: Status
+        in: query
+        name: Status
+        type: string
+      - description: UserId
+        in: query
+        name: UserId
+        type: string
+      responses: {}
+      summary: 更新消息的状态
+      tags:
+      - 消息模块
   /updateuser:
     post:
       parameters:
