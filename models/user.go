@@ -43,3 +43,17 @@ func DeleteUser(user User) *gorm.DB {
 func UpdateUser(user User, password string, sex int, phone string, email string) *gorm.DB {
 	return utils.DB.Model(&user).Updates(map[string]interface{}{"password": password, "sex": sex, "phone": phone, "email": email})
 }
+
+// 更新用户信息（信息添加）
+func UpdateUserInfo(userId int64) (*gorm.DB, error) {
+	user := User{}
+	utils.DB.Where("user_id = ?", userId).Find(&user)
+	return utils.DB.Model(&user).Updates(map[string]interface{}{"msging": user.Msging + 1}), nil
+}
+
+// 更新用户信息（信息办结）
+func UpdateUserInfoDone(userId int64) *gorm.DB {
+	user := User{}
+	utils.DB.Where("user_id = ?", userId).Find(&user)
+	return utils.DB.Model(&user).Updates(map[string]interface{}{"msged": user.Msged + 1})
+}

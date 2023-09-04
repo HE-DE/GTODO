@@ -16,6 +16,35 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/addmsga": {
+            "get": {
+                "tags": [
+                    "消息模块"
+                ],
+                "summary": "添加消息(指派)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UserId",
+                        "name": "UserId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Content",
+                        "name": "Content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "AdminId",
+                        "name": "AdminId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/addmsgu": {
             "get": {
                 "tags": [

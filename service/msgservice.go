@@ -27,12 +27,62 @@ func AddMessageByUser(c *gin.Context) {
 	id := utils.GenID()
 	msg := models.Message{
 		InfoID:     id,
-		UserId:     userId,
+		UserId:     int64(userId),
 		Content:    content,
 		CreateTime: time.Now(),
 		Status:     0,
 	}
 	models.AddMessage(msg)
+	models.UpdateUserInfo(int64(msg.UserId))
+	//向user_msging表中添加元素
+	umsg := models.User_Msging{
+		UserID:    int64(msg.UserId),
+		InfoID:    msg.InfoID,
+		DoingTime: time.Since(msg.CreateTime),
+		Status:    0,
+	}
+	models.AddInfo(umsg)
+	c.JSON(200, gin.H{
+		"code": 200,
+		"msg":  "success",
+	})
+}
+
+// AddMessageByAdmin
+// @Summary 添加消息(指派)
+// @Tags 消息模块
+// @param UserId query string false "UserId"
+// @param Content query string false "Content"
+// @param AdminId query string false "AdminId"
+// @Router /addmsga [get]
+func AddMessageByAdmin(c *gin.Context) {
+	userId, _ := strconv.Atoi(c.Query("UserId"))
+	content := c.Query("Content")
+	adminId, _ := strconv.Atoi(c.Query("AdminId"))
+	//使用雪花算法创建ID
+	if err := utils.SnowflakeInit("2023-08-30", 1); err != nil {
+		fmt.Println("Init() failed, err = ", err)
+		return
+	}
+	id := utils.GenID()
+	msg := models.Message{
+		InfoID:     id,
+		UserId:     int64(userId),
+		AdminId:    int64(adminId),
+		Content:    content,
+		CreateTime: time.Now(),
+		Status:     0,
+	}
+	models.AddMessage(msg)
+	models.UpdateUserInfo(int64(msg.UserId))
+	//向user_msging表中添加元素
+	umsg := models.User_Msging{
+		UserID:    int64(msg.UserId),
+		InfoID:    msg.InfoID,
+		DoingTime: time.Since(msg.CreateTime),
+		Status:    0,
+	}
+	models.AddInfo(umsg)
 	c.JSON(200, gin.H{
 		"code": 200,
 		"msg":  "success",

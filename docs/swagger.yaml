@@ -1,6 +1,25 @@
 info:
   contact: {}
 paths:
+  /addmsga:
+    get:
+      parameters:
+      - description: UserId
+        in: query
+        name: UserId
+        type: string
+      - description: Content
+        in: query
+        name: Content
+        type: string
+      - description: AdminId
+        in: query
+        name: AdminId
+        type: string
+      responses: {}
+      summary: 添加消息(指派)
+      tags:
+      - 消息模块
   /addmsgu:
     get:
       parameters:

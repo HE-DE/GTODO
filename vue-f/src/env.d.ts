@@ -1,6 +1,6 @@
-import VueRouter, { Route } from 'vue-router';
+import VueRouter, { Router } from 'vue-router';
 declare module 'vue/types/vue' {
   interface Vue {
-    $router: VueRouter
+    $router: Router
   }
 }

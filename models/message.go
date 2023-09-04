@@ -11,7 +11,7 @@ type Message struct {
 	gorm.Model
 	InfoID     int64     //消息ID
 	AdminId    int64     //指派者的ID
-	UserId     int       //处理者ID
+	UserId     int64     //处理者ID
 	CreateTime time.Time //创建时间
 	DoneTime   time.Time //完结时间
 	Status     int       //状态 0-Doing;1-Buzy;2-finishing;3-Done
