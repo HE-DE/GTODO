@@ -97,10 +97,33 @@ const checkEmail = (rule: any, value: any, callback: any) => {
     }, 1000)
 }
 
+const validPwd = (rule: any, value: any, callback: any) => {
+    if (value === '') {
+        callback(new Error('密码不能为空'))
+    } else {
+        if (form.checkpwd !== '') {
+            if (!ruleFormRef.value) return
+            ruleFormRef.value.validateField('checkpwd', () => null)
+        }
+        callback()
+    }
+}
+
+const validPwd2 = (rule: any, value: any, callback: any) => {
+    if (value === '') {
+        callback(new Error('请再次输入密码'))
+    } else if (value !== form.pwd) {
+        callback(new Error("两次输入的密码不一致"))
+    } else {
+        callback()
+    }
+}
 
 const rules = reactive<FormRules<typeof form>>({
     phone: [{ validator: checkPhone, trigger: 'blur' }],
-    email: [{validator:checkEmail,trigger:'blur'}]
+    email: [{ validator: checkEmail, trigger: 'blur' }],
+    pwd: [{ validator: validPwd, trigger: 'blur' }],
+    checkpwd: [{ validator: validPwd2, trigger: 'blur' }]
 })
 
 
