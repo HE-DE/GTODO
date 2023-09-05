@@ -1,12 +1,12 @@
 <template>
     <el-row class="min-h-screen">
-        <el-col :span="16" class="bg-indigo-500 flex items-center justify-center flex-col">
+        <el-col :lg="16" :md="12" class="bg-indigo-500 flex items-center justify-center flex-col">
             <div>
                 <div class="font-bold text-7xl text-light-50 mb-4">GTODO</div>
                 <div class="text-gray-200 text-xl">一个使用Go+Vue+Vite开发的备忘录</div>
             </div>
         </el-col>
-        <el-col :span="8" class="bg-indigo-50 flex items-center justify-center flex-col">
+        <el-col :lg="8" :md="12" class="bg-indigo-50 flex items-center justify-center flex-col">
             <h2 class="font-bold text-5xl text-gray-800 ">欢迎回来</h2>
             <div class="flex items-center justify-center my-6 text-gray-400 space-x-3">
                 <span class="h-[1px] w-16 bg-gray-400"></span>

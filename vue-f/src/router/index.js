@@ -6,6 +6,8 @@ import {
 import Index from "~/pages/index.vue"
 import NotFound from "~/pages/404.vue"
 import Login from "~/pages/login.vue"
+import Register from "~/pages/register.vue"
+import Test from "~/pages/test.vue"
 
 const routes = [
     {
@@ -18,10 +20,20 @@ const routes = [
         name: 'Login',
         component: Login
     },
-    { 
-        path: '/:pathMatch(.*)*', 
-        name: 'NotFound', 
-        component: NotFound 
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound
     }
 ]
 
