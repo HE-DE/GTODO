@@ -18,7 +18,7 @@
                     <el-input v-model="form.username" placeholder="请输入用户名"/>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="form.password" placeholder="请输入密码"/>
+                    <el-input v-model="form.password" type="password" placeholder="请输入密码"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button round color="#626aef" class="w-[250px]" type="primary" @click="onSubmit">登录</el-button>
@@ -40,9 +40,12 @@ const form = reactive({
 
 const onSubmit = function(){
     API({
-        url:'/',
-        method:'get',
-        dataType:'JSONP'
+        url:'/api/login',
+        method:'post',
+        data:{
+            name: form.username,
+            password: form.password
+        }
     }).then((res)=>{
         console.log(res)
     })
