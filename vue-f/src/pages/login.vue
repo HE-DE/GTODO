@@ -31,8 +31,9 @@
 <script setup>
 import { reactive } from 'vue'
 import API from '../plugins/axiosInterfaces'
-import { dataType } from 'element-plus/es/components/table-v2/src/common';
+import { useRouter } from 'vue-router';
 // do not use same name with ref
+const router = useRouter()
 const form = reactive({
    username: "",
    password: ""
@@ -48,6 +49,7 @@ const onSubmit = function(){
         }
     }).then((res)=>{
         console.log(res)
+        router.push("/")
     })
 }
 </script>
