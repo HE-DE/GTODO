@@ -30,14 +30,21 @@
 
 <script setup>
 import { reactive } from 'vue'
-
+import API from '../plugins/axiosInterfaces'
+import { dataType } from 'element-plus/es/components/table-v2/src/common';
 // do not use same name with ref
 const form = reactive({
    username: "",
    password: ""
 })
 
-const onSubmit = () => {
-    console.log('submit!')
+const onSubmit = function(){
+    API({
+        url:'/',
+        method:'get',
+        dataType:'JSONP'
+    }).then((res)=>{
+        console.log(res)
+    })
 }
 </script>

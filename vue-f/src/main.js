@@ -4,6 +4,7 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import 'virtual:windi.css'
+import axios from '~/plugins/axiosInterfaces.js'
 
 const app = createApp(App)
 
@@ -12,3 +13,4 @@ app.use(ElementPlus)
 
 
 app.mount('#app')
+app.config.globalProperties.$axios=axios
