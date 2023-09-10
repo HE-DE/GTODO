@@ -75,16 +75,16 @@ func Login(c *gin.Context) {
 	data1 := models.FindUserByName(Name)
 	//判断用户名是否存在
 	if data1.Password == "" {
-		c.JSON(200, gin.H{"status": "error", "message": "用户名不存在"})
+		c.JSON(200, gin.H{"status": "error", "message": "用户名不存在", "data": ""})
 		return
 	}
 	//判断解密后的密码是否相同
 	flag := utils.VaildPassword(password, data1.Password)
 	if !flag {
-		c.JSON(200, gin.H{"status": "error", "message": "密码错误"})
+		c.JSON(200, gin.H{"status": "error", "message": "密码错误", "data": ""})
 		return
 	}
-	c.JSON(200, gin.H{"status": "success", "message": "登录成功"})
+	c.JSON(200, gin.H{"status": "success", "message": "登录成功", "data": data1})
 }
 
 // GetUser

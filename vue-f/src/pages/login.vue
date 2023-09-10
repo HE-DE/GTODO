@@ -15,13 +15,13 @@
             </div>
             <el-form :model="form" class="w-[250px]">
                 <el-form-item>
-                    <el-input v-model="form.username" placeholder="请输入用户名"/>
+                    <el-input v-model="form.username" placeholder="请输入用户名" />
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="form.password" type="password" placeholder="请输入密码"/>
+                    <el-input v-model="form.password" type="password" placeholder="请输入密码" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button round color="#626aef" class="w-[250px]" type="primary" @click="onSubmit">登录</el-button>
+                    <el-button round color="#626aef" class="w-[250px]" type="primary"  @click="onSubmit">登录</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -32,24 +32,45 @@
 import { reactive } from 'vue'
 import API from '../plugins/axiosInterfaces'
 import { useRouter } from 'vue-router';
+import { useUsersStore } from '../store/user'
+import { ElMessage } from 'element-plus';
 // do not use same name with ref
 const router = useRouter()
+const user = useUsersStore()
 const form = reactive({
-   username: "",
-   password: ""
+    username: "",
+    password: ""
 })
 
-const onSubmit = function(){
+const onSubmit = function () {
     API({
-        url:'/api/login',
-        method:'post',
-        data:{
+        url: '/api/login',
+        method: 'post',
+        data: {
             name: form.username,
             password: form.password
         }
-    }).then((res)=>{
+    }).then((res) => {
         console.log(res)
-        router.push("/")
+        var ID = res.data.data.UserID
+        var IsAdmin = res.data.data.Indentity
+        if (IsAdmin === 1) {
+            IsAdmin = true
+        } else {
+            isAdmin = false
+        }
+        user.Login(form.username, IsAdmin, ID)
+        console.log(user.username)
+        console.log(user.Id)
+        console.log(user.isAdmin)
+        console.log(user.isLogin)
+        ElMessage({
+            message:'登录成功！',
+            type:'success'
+        })
+        setTimeout(function(){
+            router.push('/')
+        },1000)
     })
 }
 </script>
