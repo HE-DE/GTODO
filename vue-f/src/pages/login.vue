@@ -21,7 +21,7 @@
                     <el-input v-model="form.password" type="password" placeholder="请输入密码" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button round color="#626aef" class="w-[250px]" type="primary"  @click="onSubmit">登录</el-button>
+                    <el-button round color="#626aef" class="w-[250px]" type="primary" @click="onSubmit">登录</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -54,23 +54,37 @@ const onSubmit = function () {
         console.log(res)
         var ID = res.data.data.UserID
         var IsAdmin = res.data.data.Indentity
+        if (res.data.status === "error") {
+            if (res.data.message === "用户名不存在") {
+                ElMessage({
+                    message: '用户名不存在,进入注册',
+                    type: 'warning'
+                })
+                setTimeout(function () {
+                    router.push('/register')
+                }, 1000)
+                return
+            } else if (res.data.message === "密码错误") {
+                ElMessage.error('密码错误')
+                return
+            }
+        }
         if (IsAdmin === 1) {
             IsAdmin = true
         } else {
-            isAdmin = false
+            IsAdmin = false
         }
         user.Login(form.username, IsAdmin, ID)
         console.log(user.username)
         console.log(user.Id)
-        console.log(user.isAdmin)
         console.log(user.isLogin)
         ElMessage({
-            message:'登录成功！',
-            type:'success'
+            message: '登录成功！',
+            type: 'success'
         })
-        setTimeout(function(){
+        setTimeout(function () {
             router.push('/')
-        },1000)
+        }, 1000)
     })
 }
 </script>

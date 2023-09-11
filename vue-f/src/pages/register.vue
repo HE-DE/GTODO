@@ -27,8 +27,8 @@
                     </el-form-item>
                     <el-form-item label="选择性别">
                         <el-radio-group v-model="form.sex">
-                            <el-radio label="男" value="0" />
-                            <el-radio label="女" value="1" />
+                            <el-radio label="男" value=0 />
+                            <el-radio label="女" value=1 />
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="密码" prop="pwd">
@@ -50,9 +50,13 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import API from '../plugins/axiosInterfaces'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router';
 
 const ruleFormRef = ref<FormInstance>()
 // do not use same name with ref
+const router = useRouter()
 const form = reactive({
     name: '',
     identity: '',
@@ -130,9 +134,36 @@ const rules = reactive<FormRules<typeof form>>({
 const onSubmit = (formEl: FormInstance | undefined) => {
     console.log('submit!')
     if (!formEl) return
+    var sex = '0'
+    if (form.sex === "女") {
+        sex = '1'
+    }
+    console.log(form.identity)
     formEl.validate((valid) => {
         if (valid) {
-            console.log('submit!')
+            console.log(form)
+            API({
+                url: '/api/register',
+                method: 'post',
+                data: {
+                    name: form.name,
+                    phone: form.phone,
+                    email: form.email,
+                    sex: sex,
+                    password: form.pwd,
+                    indentity: form.identity
+                }
+            }).then((res) => {
+                if (res.data.status === "error") {
+                    ElMessage.error(res.data.message)
+                } else {
+                    ElMessage.success(res.data.message)
+                    // 跳转到登录页面
+                    setTimeout(function () {
+                        router.push('/login')
+                    }, 1000)
+                }
+            })
         } else {
             console.log('error submit!')
             return false
