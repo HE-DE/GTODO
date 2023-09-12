@@ -16,4 +16,6 @@
 import Aside from '../components/aside.vue';
 import Header from '../components/header.vue';
 import MsgList from '../components/msglist.vue';
+import beforeRouteEnter from 'vue-router';
+
 </script>

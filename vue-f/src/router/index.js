@@ -7,12 +7,22 @@ import Index from "~/pages/index.vue"
 import NotFound from "~/pages/404.vue"
 import Login from "~/pages/login.vue"
 import Register from "~/pages/register.vue"
+import {useUsersStore} from '../store/user';
 
 const routes = [
     {
         path: '/',
         name: 'Index',
         component: Index,
+        beforeEnter: (to, from, next) => {
+            // 判断是否登录
+            const user = useUsersStore();
+            if (user.isLogin) {
+                next();
+            }else{
+                router.push('/login');
+            }
+        }
     },
     {
         path: '/login',
@@ -22,7 +32,16 @@ const routes = [
     {
         path: '/register',
         name: 'Register',
-        component: Register
+        component: Register,
+        beforeEnter: (to, from, next) => {
+            // 判断是否登录
+            const user = useUsersStore();
+            if (user.isLogin) {
+                next();
+            }else{
+                router.push('/login');
+            }
+        }
     },
     {
         path: '/:pathMatch(.*)*',
