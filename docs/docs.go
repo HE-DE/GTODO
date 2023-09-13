@@ -91,6 +91,23 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/getmsg": {
+            "get": {
+                "tags": [
+                    "消息模块"
+                ],
+                "summary": "获取用户的所有待办事项",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/getuser": {
             "get": {
                 "tags": [

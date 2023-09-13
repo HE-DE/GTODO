@@ -48,3 +48,10 @@ func QueryMessage(InfoId int64) time.Time {
 	utils.DB.Where("info_id = ?", InfoId).Find(&msg)
 	return msg.CreateTime
 }
+
+// 查询所有消息
+func FindMsgByName(InfoId int64) []Message {
+	var msg []Message
+	utils.DB.Where("user_id = ?", InfoId).Find(&msg)
+	return msg
+}

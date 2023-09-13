@@ -94,6 +94,7 @@ func Login(c *gin.Context) {
 // @Router /getuser [get]
 func GetUser(c *gin.Context) {
 	Name := c.Query("name")
+	fmt.Println("Name: ", Name)
 	data1 := models.FindUserByName(Name)
 	if data1.Password == "" {
 		c.JSON(200, gin.H{"status": "error", "message": "用户名不存在"})

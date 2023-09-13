@@ -26,5 +26,6 @@ func Router() *gin.Engine {
 	r.GET("/addmsgu", service.AddMessageByUser)
 	r.GET("/addmsga", service.AddMessageByAdmin)
 	r.GET("/updatemsg", service.UpdateInfoStatus)
+	r.GET("/getmsg", service.GetMessage)
 	return r
 }
