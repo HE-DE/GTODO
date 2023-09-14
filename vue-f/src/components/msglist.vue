@@ -2,9 +2,9 @@
   <el-main>
     <el-scrollbar>
       <el-table :data="tableData">
-        <el-table-column prop="date" label="Date" width="140" />
-        <el-table-column prop="name" label="Name" width="120" />
-        <el-table-column prop="address" label="Address" />
+        <el-table-column prop="InfoID" label="ID" width="auto" min-width="25%" />
+        <el-table-column prop="CreateTime" label="Time" width="auto" min-width="25%" />
+        <el-table-column prop="Content" label="Content" width="auto" min-width="50%"/>
       </el-table>
     </el-scrollbar>
   </el-main>
@@ -15,17 +15,17 @@ import { ref } from 'vue'
 import { useUsersStore } from '../store/user'
 import API from '../plugins/axiosInterfaces'
 
-
 const user = useUsersStore()
-console.log(user.username)
+const tableData = ref([])
 API({
-  url: '/api/getuser',
+  url: '/api/getmsg',
   method: 'get',
   params: {
-    name: "t1"
+    id: user.Id
   }
 }).then(res => {
   console.log(res)
+  tableData.value = res.data.data
 })
 
 const item = {
@@ -33,5 +33,4 @@ const item = {
   name: 'Tom',
   address: 'No. 189, Grove St, Los Angeles',
 }
-const tableData = ref(Array.from({ length: 20 }).fill(item))
 </script>
