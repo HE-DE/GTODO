@@ -45,10 +45,10 @@ func UpdateUser(user User, password string, sex int, phone string, email string)
 }
 
 // 更新用户信息（信息添加）
-func UpdateUserInfo(userId int64) (*gorm.DB, error) {
+func UpdateUserInfo(userId int64) *gorm.DB {
 	user := User{}
 	utils.DB.Where("user_id = ?", userId).Find(&user)
-	return utils.DB.Model(&user).Updates(map[string]interface{}{"msging": user.Msging + 1}), nil
+	return utils.DB.Model(&user).Updates(map[string]interface{}{"msging": user.Msging + 1})
 }
 
 // 更新用户信息（信息办结）
