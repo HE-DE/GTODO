@@ -83,7 +83,7 @@ const onSubmit = function () {
             type: 'success'
         })
         setTimeout(function () {
-            router.push('/')
+            router.push('/information')
         }, 1000)
     })
 }

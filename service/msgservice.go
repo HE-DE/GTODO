@@ -79,7 +79,6 @@ func AddMessageByAdmin(c *gin.Context) {
 // @Tags 消息模块
 // @param InfoId query string false "InfoId"
 // @param Status query string false "Status"
-// @param UserId query string false "UserId"
 // @Router /updatemsg [get]
 func UpdateInfoStatus(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Query("InfoId"))
@@ -107,7 +106,7 @@ func UpdateInfoStatus(c *gin.Context) {
 // @Router /getmsg [get]
 func GetMessage(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Query("id"))
-	data1 := models.FindMsgByName(int64(id))
+	data1 := models.FindMsgByUser(int64(id))
 	if len(data1) == 0 {
 		c.JSON(200, gin.H{
 			"code": 200,
