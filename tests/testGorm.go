@@ -23,8 +23,6 @@ func main() {
 	//db.AutoMigrate(&models.UserBasic{})
 	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.Message{})
-	db.AutoMigrate(&models.User_Msged{})
-	db.AutoMigrate(&models.User_Msging{})
 
 	// Create
 	// user := &models.UserBasic{}

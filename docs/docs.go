@@ -213,12 +213,6 @@ const docTemplate = `{
                         "description": "Status",
                         "name": "Status",
                         "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "UserId",
-                        "name": "UserId",
-                        "in": "query"
                     }
                 ],
                 "responses": {}

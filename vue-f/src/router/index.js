@@ -11,7 +11,7 @@ import {useUsersStore} from '../store/user';
 
 const routes = [
     {
-        path: '/',
+        path: '/information',
         name: 'Index',
         component: Index,
         beforeEnter: (to, from, next) => {
@@ -33,15 +33,6 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register,
-        beforeEnter: (to, from, next) => {
-            // 判断是否登录
-            const user = useUsersStore();
-            if (user.isLogin) {
-                next();
-            }else{
-                router.push('/login');
-            }
-        }
     },
     {
         path: '/:pathMatch(.*)*',
