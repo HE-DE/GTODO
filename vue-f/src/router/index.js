@@ -11,6 +11,10 @@ import {useUsersStore} from '../store/user';
 
 const routes = [
     {
+        path: '/',
+        redirect: '/login'
+    },
+    {
         path: '/information',
         name: 'Index',
         component: Index,

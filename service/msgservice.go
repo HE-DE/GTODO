@@ -114,9 +114,17 @@ func GetMessage(c *gin.Context) {
 		})
 		return
 	}
+	CTime := make([]string, len(data1))
+	DTime := make([]string, len(data1))
+	for i := 0; i < len(data1); i++ {
+		CTime[i] = data1[i].CreateTime.Format("2006-01-02 15:04:05")
+		DTime[i] = data1[i].DoneTime.Format("2006-01-02 15:04:05")
+	}
 	c.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "获取成功",
-		"data": data1,
+		"code":  200,
+		"msg":   "获取成功",
+		"data":  data1,
+		"CTime": CTime,
+		"DTime": DTime,
 	})
 }
