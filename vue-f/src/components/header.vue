@@ -1,16 +1,16 @@
 <template>
     <div class="toolbar">
-        <el-dropdown>
+        <el-dropdown :hide-on-click="false" @command="handleCommand">
             <img src="../assets/img/head.jpeg" style="width: 40px;border-radius: 50px; margin-top: 10px;">
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item>
+                    <el-dropdown-item command="user">
                         <el-icon>
                             <Tools></Tools>
                         </el-icon>
                         个人信息
                     </el-dropdown-item>
-                    <el-dropdown-item>
+                    <el-dropdown-item command="logout">
                         <el-icon>
                             <House></House>
                         </el-icon>
@@ -24,6 +24,17 @@
 
 <script lang="ts" setup>
 import { Tools, House } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const handleCommand = (command: string|number|object) => {
+    if (command === 'logout') {
+        window.sessionStorage.clear()
+        window.location.href = '/'
+    }else if(command === 'user'){
+        router.push('/user')
+    }
+}
 
 </script>
 

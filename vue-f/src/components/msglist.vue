@@ -7,10 +7,19 @@
         <el-table-column prop="Content" label="Content" width="auto" min-width="50%" />
         <el-table-column fixed="right" label="Operations" width="240">
           <template v-slot="scope">
-            <el-button color="#79bbff" size="small" @click="DoingUpdate(scope.row.InfoID)"><el-icon style="font-size: 15px;"><Loading /></el-icon></el-button>
-            <el-button color="#b3e19d" size="small" ><el-icon style="font-size: 15px;"><Odometer /></el-icon></el-button>
-            <el-button color="#fab6b6" size="small"><el-icon style="font-size: 15px;"><Lock /></el-icon></el-button>
-            <el-button color="#b1b3b8" size="small"><el-icon style="font-size: 15px;"><Check /></el-icon></el-button>
+            <el-button color="#b3e19d" size="small" @click="DoingUpdate(scope.row.InfoID,scope.$index)"><el-icon
+                style="font-size: 15px;">
+                <Loading />
+              </el-icon></el-button>
+            <el-button color="#79bbff" size="small" @click="BuzyUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+                <Odometer />
+              </el-icon></el-button>
+            <el-button color="#fab6b6" size="small" @click="FinishUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+                <Lock />
+              </el-icon></el-button>
+            <el-button color="#b1b3b8" size="small" @click="DoneUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+                <Check />
+              </el-icon></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -24,7 +33,7 @@
 import { ref, reactive } from 'vue'
 import { useUsersStore } from '../store/user'
 import API from '../plugins/axiosInterfaces'
-import { Loading,Check,Odometer,Lock } from "@element-plus/icons-vue";
+import { Loading, Check, Odometer, Lock } from "@element-plus/icons-vue";
 
 const user = useUsersStore()
 const tableData = ref([] as any[])
@@ -34,8 +43,60 @@ var changePage = reactive({
   total: tableData.value.length + 1 / 12,
 })
 
-function DoingUpdate(InfoID:string){
-  console.log(InfoID)
+function DoingUpdate(ID: string,index:number) {
+  API({
+    url: '/api/updatemsg',
+    method: 'get',
+    params: {
+      InfoId: ID,
+      Status: 0,
+    }
+  }).then(res => {
+    console.log(res)
+    pageData.value[index].Status = 0
+  })
+}
+
+function BuzyUpdate(ID: string,index:number) {
+  API({
+    url: '/api/updatemsg',
+    method: 'get',
+    params: {
+      InfoId: ID,
+      Status: 1,
+    }
+  }).then(res => {
+    console.log(res)
+    pageData.value[index].Status = 1
+  })
+}
+
+function FinishUpdate(ID: string,index:number) {
+  API({
+    url: '/api/updatemsg',
+    method: 'get',
+    params: {
+      InfoId: ID,
+      Status: 2,
+    }
+  }).then(res => {
+    console.log(res)
+    pageData.value[index].Status = 2
+  })
+}
+
+function DoneUpdate(ID: string,index:number) {
+  API({
+    url: '/api/updatemsg',
+    method: 'get',
+    params: {
+      InfoId: ID,
+      Status: 3,
+    }
+  }).then(res => {
+    console.log(res)
+    pageData.value[index].Status = 3
+  })
 }
 
 //获取当前页数
@@ -99,12 +160,12 @@ API({
 </script>
 
 <style>
-.el-table .buzying-row {
-  --el-table-tr-bg-color: #79bbff;
-}
-
 .el-table .doing-row {
   --el-table-tr-bg-color: #b3e19d;
+}
+
+.el-table .buzying-row {
+  --el-table-tr-bg-color: #79bbff;
 }
 
 .el-table .finishing-row {

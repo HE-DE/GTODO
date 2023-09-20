@@ -7,6 +7,7 @@ import Index from "~/pages/index.vue"
 import NotFound from "~/pages/404.vue"
 import Login from "~/pages/login.vue"
 import Register from "~/pages/register.vue"
+import User from "~/pages/user.vue"
 import {useUsersStore} from '../store/user';
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register,
+    },
+    {
+        path:'/user',
+        name:'User',
+        component: User,
     },
     {
         path: '/:pathMatch(.*)*',
