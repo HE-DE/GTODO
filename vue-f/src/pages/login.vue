@@ -70,9 +70,9 @@ const onSubmit = function () {
             }
         }
         if (IsAdmin === 1) {
-            IsAdmin = true
-        } else {
             IsAdmin = false
+        } else {
+            IsAdmin = true
         }
         user.Login(form.username, IsAdmin, ID)
         console.log(user.username)
