@@ -51,3 +51,10 @@ func FindMsgById(InfoId int64) Message {
 	utils.DB.Where("info_id = ?", InfoId).Find(&msg)
 	return msg
 }
+
+// 查询在办的消息
+func FindMsgByUserDoing(UserId int64) []Message {
+	var msg []Message
+	utils.DB.Where("user_id = ? and status != ?", UserId, 3).Find(&msg)
+	return msg
+}

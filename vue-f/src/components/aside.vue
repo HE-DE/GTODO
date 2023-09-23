@@ -19,7 +19,7 @@
                     任务用时统计
                 </el-menu-item>
             </el-sub-menu>
-            <el-menu-item index="2">
+            <el-menu-item index="2" @click="TODOThing">
                 <el-icon>
                     <Grid />
                 </el-icon>
@@ -43,11 +43,16 @@ import {
     PieChart,
     Grid,
 } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
+}
+function TODOThing() {
+    router.push('/doing')
 }
 
 </script>

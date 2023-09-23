@@ -50,6 +50,17 @@ paths:
       summary: 删除用户信息
       tags:
       - 用户模块
+  /getdoing:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      responses: {}
+      summary: 获取用户的所有待办事项
+      tags:
+      - 消息模块
   /getmsg:
     get:
       parameters:
@@ -124,6 +135,10 @@ paths:
       - description: InfoId
         in: query
         name: InfoId
+        type: string
+      - description: UserId
+        in: query
+        name: UserId
         type: string
       - description: Status
         in: query

@@ -2,7 +2,7 @@
   <el-main>
     <el-scrollbar>
       <div>
-        <el-page-header title="login" @back="onBack">
+        <el-page-header title="Back" @back="onBack">
           <template #content>
             <div class="flex items-center">
               <el-avatar class="mr-3" :size="32"
@@ -23,27 +23,25 @@
 
           <el-descriptions :column="3" size="large" class="mt-4">
             <el-descriptions-item label="Username">{{ username }}</el-descriptions-item>
-            <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-            <el-descriptions-item label="Email">123@qq.com</el-descriptions-item>
-            <el-descriptions-item label="Remarks">
-              <el-tag size="small" v-if="isAdmin">admin</el-tag>
-              <el-tag size="small" v-if="isUser">User</el-tag>
+            <el-descriptions-item label="Telephone">{{ Phone }}</el-descriptions-item>
+            <el-descriptions-item label="Email">{{ Email }}</el-descriptions-item>
+            <el-descriptions-item label="Sex">
+              <el-tag  v-if=" Sex === 0 ">man</el-tag>
+              <el-tag  v-if=" Sex === 1 ">girl</el-tag>
             </el-descriptions-item>
-            <el-descriptions-item label="Msg">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+            <el-descriptions-item label="Msg">You have {{ Msging }} messages to do!
             </el-descriptions-item>
           </el-descriptions>
-          <p class="mt-4 text-sm">
-            Element Plus team uses <b>weekly</b> release strategy under normal
-            circumstance, but critical bug fixes would require hotfix so the actual
-            release number <b>could be</b> more than 1 per week.
+          <p class="text-green-500" align="center">
+            <b>愿此行终抵群星！</b>
           </p>
         </el-page-header>
       </div>
       <div class="block text-center">
         <el-carousel height="490px">
-          <el-carousel-item v-for="item in imageUrl" :key="item">
+          <el-carousel-item v-for=" item  in  imageUrl " :key=" item ">
             <div style=" display: flex;justify-content: center;align-items: center; ">
-              <img :src="item.url" alt="" />
+              <img :src=" item.url " alt="" />
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -63,7 +61,7 @@ function Edit() {
 }
 
 const onBack = () => {
-  router.push("/")
+  router.push("/information")
 }
 const user = useUsersStore()
 const username = ref(user.username)
@@ -75,11 +73,31 @@ if (isAdmin === false) {
 } else {
   isUser = false
 }
+
+const Email = ref("")
+const Phone = ref("")
+const Sex = ref()
+const Msging=ref()
+API({
+  url: '/api/getuser',
+  method: 'get',
+  params: {
+    name: username.value,
+  }
+}).then(res => {
+  Email.value = res.data.data.Email
+  Phone.value = res.data.data.Phone
+  Sex.value = res.data.data.Sex
+  Msging.value = res.data.data.Msging
+})
+
+
+//图片的滚动播放池
 const imageUrl = [
-  { url: "http://www.gengdan.cn/wp-content/uploads/2023/03/2023030921323441.jpg" },
-  { url: "http://www.gengdan.cn/wp-content/uploads/2023/03/2023030921333114.jpg" },
-  { url: "http://www.gengdan.cn/wp-content/uploads/2023/03/2023030921323441.jpg" },
-  { url: "http://www.gengdan.cn/wp-content/uploads/2023/03/2023030921325368.jpg" }];
+  { url: "https://www.cioinsight.com.cn/uploads/images/20230223/20230223163502_18189.jpg" },
+  { url: "https://img.yanlutong.com/uploadimg/image/20230217/20230217095912_63131.jpg" },
+  { url: "https://pic2.zhimg.com/v2-090dee1d971cdcd3520f7f6bf4b2749c_1440w.jpg?source=172ae18b" },
+  { url: "https://pic.kts.g.mi.com/3c921c7ee6b63ca648cc6798c6de39b25686095922872919379.png" }];
 
 </script>
 

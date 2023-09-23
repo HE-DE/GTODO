@@ -7,17 +7,20 @@
         <el-table-column prop="Content" label="Content" width="auto" min-width="50%" />
         <el-table-column fixed="right" label="Operations" width="240">
           <template v-slot="scope">
-            <el-button color="#b3e19d" size="small" @click="DoingUpdate(scope.row.InfoID,scope.$index)"><el-icon
-                style="font-size: 15px;">
+            <el-button color="#b3e19d" size="small" @click="DoingUpdate(scope.row.InfoID, scope.$index)"
+              :disabled="IsEdit(scope.row.Status)"><el-icon style="font-size: 15px;">
                 <Loading />
               </el-icon></el-button>
-            <el-button color="#79bbff" size="small" @click="BuzyUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+            <el-button color="#79bbff" size="small" @click="BuzyUpdate(scope.row.InfoID, scope.$index)"
+              :disabled="IsEdit(scope.row.Status)"><el-icon style="font-size: 15px;">
                 <Odometer />
               </el-icon></el-button>
-            <el-button color="#fab6b6" size="small" @click="FinishUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+            <el-button color="#fab6b6" size="small" @click="FinishUpdate(scope.row.InfoID, scope.$index)"
+              :disabled="IsEdit(scope.row.Status)"><el-icon style="font-size: 15px;">
                 <Lock />
               </el-icon></el-button>
-            <el-button color="#b1b3b8" size="small" @click="DoneUpdate(scope.row.InfoID,scope.$index)"><el-icon style="font-size: 15px;">
+            <el-button color="#b1b3b8" size="small" @click="DoneUpdate(scope.row.InfoID, scope.$index)"
+              :disabled="IsEdit(scope.row.Status)"><el-icon style="font-size: 15px;">
                 <Check />
               </el-icon></el-button>
           </template>
@@ -34,6 +37,7 @@ import { ref, reactive } from 'vue'
 import { useUsersStore } from '../store/user'
 import API from '../plugins/axiosInterfaces'
 import { Loading, Check, Odometer, Lock } from "@element-plus/icons-vue";
+import { ElMessage } from 'element-plus'
 
 const user = useUsersStore()
 const tableData = ref([] as any[])
@@ -42,8 +46,21 @@ var changePage = reactive({
   currentPage: 1,
   total: tableData.value.length + 1 / 12,
 })
+const istrue = ref(true)
 
-function DoingUpdate(ID: string,index:number) {
+function MessageOut(msg:string){
+    ElMessage.success(msg)
+}
+
+function IsEdit(Status: number) {
+  if (Status === 3) {
+    return true
+  }
+  return false
+}
+
+
+function DoingUpdate(ID: string, index: number) {
   API({
     url: '/api/updatemsg',
     method: 'get',
@@ -54,10 +71,11 @@ function DoingUpdate(ID: string,index:number) {
   }).then(res => {
     console.log(res)
     pageData.value[index].Status = 0
+    MessageOut(res.data.msg)
   })
 }
 
-function BuzyUpdate(ID: string,index:number) {
+function BuzyUpdate(ID: string, index: number) {
   API({
     url: '/api/updatemsg',
     method: 'get',
@@ -68,10 +86,11 @@ function BuzyUpdate(ID: string,index:number) {
   }).then(res => {
     console.log(res)
     pageData.value[index].Status = 1
+    MessageOut(res.data.msg)
   })
 }
 
-function FinishUpdate(ID: string,index:number) {
+function FinishUpdate(ID: string, index: number) {
   API({
     url: '/api/updatemsg',
     method: 'get',
@@ -82,20 +101,23 @@ function FinishUpdate(ID: string,index:number) {
   }).then(res => {
     console.log(res)
     pageData.value[index].Status = 2
+    MessageOut(res.data.msg)
   })
 }
 
-function DoneUpdate(ID: string,index:number) {
+function DoneUpdate(ID: string, index: number) {
   API({
     url: '/api/updatemsg',
     method: 'get',
     params: {
+      UserId: user.Id,
       InfoId: ID,
       Status: 3,
     }
   }).then(res => {
     console.log(res)
     pageData.value[index].Status = 3
+    MessageOut(res.data.msg)
   })
 }
 

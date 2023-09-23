@@ -91,6 +91,23 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/getdoing": {
+            "get": {
+                "tags": [
+                    "消息模块"
+                ],
+                "summary": "获取用户的所有待办事项",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/getmsg": {
             "get": {
                 "tags": [
@@ -206,6 +223,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "InfoId",
                         "name": "InfoId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "UserId",
+                        "name": "UserId",
                         "in": "query"
                     },
                     {

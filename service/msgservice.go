@@ -78,14 +78,17 @@ func AddMessageByAdmin(c *gin.Context) {
 // @Summary 更新消息的状态
 // @Tags 消息模块
 // @param InfoId query string false "InfoId"
+// @param UserId query string false "UserId"
 // @param Status query string false "Status"
 // @Router /updatemsg [get]
 func UpdateInfoStatus(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Query("InfoId"))
 	status, _ := strconv.Atoi(c.Query("Status"))
+	userId, _ := strconv.Atoi(c.Query("UserId"))
 	if status == 3 {
 		donetime := time.Now()
 		models.UpdateMessage(int64(id), status, donetime)
+		models.UpdateUserInfoDone(int64(userId))
 		c.JSON(200, gin.H{
 			"code": 200,
 			"msg":  "处理成功",
@@ -107,6 +110,36 @@ func UpdateInfoStatus(c *gin.Context) {
 func GetMessage(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Query("id"))
 	data1 := models.FindMsgByUser(int64(id))
+	if len(data1) == 0 {
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "暂无消息",
+		})
+		return
+	}
+	CTime := make([]string, len(data1))
+	DTime := make([]string, len(data1))
+	for i := 0; i < len(data1); i++ {
+		CTime[i] = data1[i].CreateTime.Format("2006-01-02 15:04:05")
+		DTime[i] = data1[i].DoneTime.Format("2006-01-02 15:04:05")
+	}
+	c.JSON(200, gin.H{
+		"code":  200,
+		"msg":   "获取成功",
+		"data":  data1,
+		"CTime": CTime,
+		"DTime": DTime,
+	})
+}
+
+// Getdoing
+// @Summary 获取用户的所有待办事项
+// @Tags 消息模块
+// @param id query string false "id"
+// @Router /getdoing [get]
+func Getdoing(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Query("id"))
+	data1 := models.FindMsgByUserDoing(int64(id))
 	if len(data1) == 0 {
 		c.JSON(200, gin.H{
 			"code": 200,

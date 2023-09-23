@@ -55,5 +55,6 @@ func UpdateUserInfo(userId int64) *gorm.DB {
 func UpdateUserInfoDone(userId int64) *gorm.DB {
 	user := User{}
 	utils.DB.Where("user_id = ?", userId).Find(&user)
+	utils.DB.Model(&user).Updates(map[string]interface{}{"msging": user.Msging - 1})
 	return utils.DB.Model(&user).Updates(map[string]interface{}{"msged": user.Msged + 1})
 }

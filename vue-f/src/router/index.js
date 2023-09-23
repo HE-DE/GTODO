@@ -8,6 +8,9 @@ import NotFound from "~/pages/404.vue"
 import Login from "~/pages/login.vue"
 import Register from "~/pages/register.vue"
 import User from "~/pages/user.vue"
+import UserEdit from "~/pages/edituser.vue"
+import Doing from "~/pages/doing.vue"
+import Addmsg from "~/pages/addmsg.vue"
 import {useUsersStore} from '../store/user';
 
 const routes = [
@@ -43,6 +46,21 @@ const routes = [
         path:'/user',
         name:'User',
         component: User,
+    },
+    {
+        path: '/edituser',
+        name: 'EditUser',
+        component:UserEdit,
+    },
+    {
+        path: '/doing',
+        name: 'Doing',
+        component: Doing,
+    },
+    {
+        path: '/addmsg',
+        name: 'addmsg',
+        component: Addmsg,
     },
     {
         path: '/:pathMatch(.*)*',
