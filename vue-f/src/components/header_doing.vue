@@ -2,6 +2,7 @@
     <div>
         <el-button type="primary" :icon="Back" @click="OnBack" style="float: left;margin-top: 10px;" circle />
         <el-button type="success" :icon="Edit" @click="onsubmit" style="float: left;margin-top: 10px;" circle />
+        <el-button type="warning" v-if="IsAdmin" :icon="Plus" @click="onsubmit" style="float: left;margin-top: 10px;" circle />
         <el-dropdown :hide-on-click="false" @command="handleCommand">
             <img src="../assets/img/head.jpeg" style="width: 40px;border-radius: 50px; margin-top: 10px;">
             <template #dropdown>
@@ -25,13 +26,16 @@
 </template>
 
 <script lang="ts" setup>
+import {ref} from 'vue'
 import { Tools, House } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
-import { Back, Edit } from '@element-plus/icons-vue'
+import { Back, Edit,Plus } from '@element-plus/icons-vue'
 import { useUsersStore } from '../store/user';
 
 const router = useRouter()
 const user = useUsersStore()
+const IsAdmin = ref(user.isAdmin)
+
 const handleCommand = (command: string | number | object) => {
     if (command === 'logout') {
         window.sessionStorage.clear()
@@ -46,7 +50,7 @@ function OnBack(){
 }
 
 function onsubmit(){
-    router.push('/addmsg')
+    router.push('/addmsga')
 }
 
 </script>

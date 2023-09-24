@@ -58,3 +58,14 @@ func UpdateUserInfoDone(userId int64) *gorm.DB {
 	utils.DB.Model(&user).Updates(map[string]interface{}{"msging": user.Msging - 1})
 	return utils.DB.Model(&user).Updates(map[string]interface{}{"msged": user.Msged + 1})
 }
+
+// 获取所有用户的用户名
+func GetAllUserName() []string {
+	var users []User
+	utils.DB.Find(&users)
+	var userNames []string
+	for _, user := range users {
+		userNames = append(userNames, user.Name)
+	}
+	return userNames
+}

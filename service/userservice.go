@@ -107,6 +107,26 @@ func GetUser(c *gin.Context) {
 	})
 }
 
+// GetUserName
+// @Summary 获取用户名的全部信息
+// @Tags 用户模块
+// @Router /getusername [get]
+func GetUserName(c *gin.Context) {
+	data1 := models.GetAllUserName()
+	if len(data1) == 0 {
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "暂无用户",
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"status":  "success",
+		"message": "获取用户名成功",
+		"data":    data1,
+	})
+}
+
 // DeleteUser
 // @Summary 删除用户信息
 // @Tags 用户模块

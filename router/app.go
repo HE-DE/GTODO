@@ -28,5 +28,6 @@ func Router() *gin.Engine {
 	r.GET("/updatemsg", service.UpdateInfoStatus)
 	r.GET("/getmsg", service.GetMessage)
 	r.GET("/getdoing", service.Getdoing)
+	r.GET("/getusername", service.GetUserName)
 	return r
 }
