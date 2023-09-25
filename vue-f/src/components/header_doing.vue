@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" :icon="Back" @click="OnBack" style="float: left;margin-top: 10px;" circle />
-        <el-button type="success" :icon="Edit" @click="onsubmit" style="float: left;margin-top: 10px;" circle />
+        <el-button type="success" :icon="Edit" @click="onsubmit1" style="float: left;margin-top: 10px;" circle />
         <el-button type="warning" v-if="IsAdmin" :icon="Plus" @click="onsubmit" style="float: left;margin-top: 10px;" circle />
         <el-dropdown :hide-on-click="false" @command="handleCommand">
             <img src="../assets/img/head.jpeg" style="width: 40px;border-radius: 50px; margin-top: 10px;">
@@ -51,6 +51,10 @@ function OnBack(){
 
 function onsubmit(){
     router.push('/addmsga')
+}
+
+function onsubmit1(){
+    router.push('addmsg')
 }
 
 </script>
