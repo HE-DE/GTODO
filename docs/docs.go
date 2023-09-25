@@ -142,6 +142,15 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/getuserlist": {
+            "get": {
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "获取用户的全部信息",
+                "responses": {}
+            }
+        },
         "/getusername": {
             "get": {
                 "tags": [

@@ -69,3 +69,10 @@ func GetAllUserName() []string {
 	}
 	return userNames
 }
+
+// 获取所有用户信息
+func GetAllUser() []User {
+	var users []User
+	utils.DB.Find(&users)
+	return users
+}

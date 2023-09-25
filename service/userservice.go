@@ -180,3 +180,23 @@ func UpdateUser(c *gin.Context) {
 	models.UpdateUser(data1, Password, Sex, Phone, Email)
 	c.JSON(200, gin.H{"status": "success", "message": "修改成功"})
 }
+
+// GetUserList
+// @Summary 获取用户的全部信息
+// @Tags 用户模块
+// @Router /getuserlist [get]
+func GetUserList(c *gin.Context) {
+	data1 := models.GetAllUser()
+	if len(data1) == 0 {
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "暂无用户",
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"status":  "success",
+		"message": "获取用户名成功",
+		"data":    data1,
+	})
+}

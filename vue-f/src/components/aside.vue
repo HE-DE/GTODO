@@ -8,11 +8,11 @@
                     </el-icon>
                     <span>数据统计</span>
                 </template>
-                <el-menu-item index="1-1">
+                <el-menu-item index="1-1" @click="Finishing">
                     <el-icon><Select /></el-icon>
                     事项完成情况
                 </el-menu-item>
-                <el-menu-item index="1-2">
+                <el-menu-item index="1-2" @click="Timing">
                     <el-icon>
                         <PieChart />
                     </el-icon>
@@ -25,7 +25,7 @@
                 </el-icon>
                 <span>待办事项列表</span>
             </el-menu-item>
-            <el-menu-item index="3" class="">
+            <el-menu-item index="3" @click="UserList">
                 <el-icon>
                     <UserFilled />
                 </el-icon>
@@ -53,6 +53,15 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 function TODOThing() {
     router.push('/doing')
+}
+function UserList(){
+    router.push('/userlist')
+}
+function Timing() {
+    router.push('/timing')
+}
+function Finishing(){
+    router.push('/finishing')
 }
 
 </script>

@@ -12,6 +12,8 @@ import UserEdit from "~/pages/edituser.vue"
 import Doing from "~/pages/doing.vue"
 import Addmsg from "~/pages/addmsg.vue"
 import Addmsga from "~/pages/addmsga.vue"
+import UserList from "~/pages/userlist.vue"
+import Timing from "~/pages/timing.vue"
 import {useUsersStore} from '../store/user';
 
 const routes = [
@@ -67,6 +69,16 @@ const routes = [
         path: '/addmsga',
         name: 'addmsga',
         component: Addmsga,
+    },
+    {
+        path: '/userlist',
+        name: 'userlist',
+        component: UserList,
+    },
+    {
+        path: '/timing',
+        name: 'timing',
+        component: Timing,
     },
     {
         path: '/:pathMatch(.*)*',

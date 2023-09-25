@@ -4,7 +4,13 @@
             <el-table :data="pageData" :row-class-name="tableRowClassName" height="100%" :row-style="{ height: '50px' }">
                 <el-table-column prop="InfoID" label="ID" width="auto" min-width="25%" />
                 <el-table-column prop="CreateTime" label="Time" width="auto" min-width="25%" />
-                <el-table-column prop="Content" label="Content" width="auto" min-width="50%" />
+                <el-table-column prop="Content" label="Content" width="auto" min-width="25%" show-overflow-tooltip="true"/>
+                <el-table-column prop="AdminId" label="管理员分配" width="auto" min-width="25%">
+                    <template #default="scope">
+                        <el-tag v-if="scope.row.AdminId === 0" type="warning">未分配</el-tag>
+                        <el-tag v-else type="success">管理员{{ scope.row.AdminId }}</el-tag>
+                    </template>
+                </el-table-column>
                 <el-table-column fixed="right" label="Operations" width="240">
                     <template v-slot="scope">
                         <el-button color="#b3e19d" size="small" @click="DoingUpdate(scope.row.InfoID, scope.$index)"
@@ -47,7 +53,6 @@ var changePage = reactive({
     currentPage: 1,
     total: tableData.value.length + 1 / 12,
 })
-const istrue = ref(true)
 
 function MessageOut(msg:string){
     ElMessage.success(msg)

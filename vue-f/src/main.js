@@ -7,6 +7,7 @@ import router from './router'
 import 'virtual:windi.css'
 import axios from '~/plugins/axiosInterfaces.js'
 
+
 const pinia = createPinia()
 const app = createApp(App)
 

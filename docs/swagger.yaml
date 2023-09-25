@@ -83,6 +83,12 @@ paths:
       summary: 获取用户信息
       tags:
       - 用户模块
+  /getuserlist:
+    get:
+      responses: {}
+      summary: 获取用户的全部信息
+      tags:
+      - 用户模块
   /getusername:
     get:
       responses: {}
