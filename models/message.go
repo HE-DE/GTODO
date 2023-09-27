@@ -58,3 +58,12 @@ func FindMsgByUserDoing(UserId int64) []Message {
 	utils.DB.Where("user_id = ? and status != ?", UserId, 3).Find(&msg)
 	return msg
 }
+
+// 更新在办消息的doing时间
+func UpdateDoing(UserId int64) {
+	var msg []Message
+	utils.DB.Where("user_id = ? and status != ?", UserId, 3).Find(&msg)
+	for _, v := range msg {
+		utils.DB.Model(&v).Updates(map[string]interface{}{"doing_time": time.Since(v.CreateTime)})
+	}
+}

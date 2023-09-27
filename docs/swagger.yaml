@@ -141,6 +141,17 @@ paths:
       summary: 注册用户
       tags:
       - 用户模块
+  /updatedoing:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      responses: {}
+      summary: 更新用户的所有待办事项的doing时间
+      tags:
+      - 消息模块
   /updatemsg:
     get:
       parameters:

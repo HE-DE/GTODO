@@ -230,6 +230,23 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/updatedoing": {
+            "get": {
+                "tags": [
+                    "消息模块"
+                ],
+                "summary": "更新用户的所有待办事项的doing时间",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/updatemsg": {
             "get": {
                 "tags": [

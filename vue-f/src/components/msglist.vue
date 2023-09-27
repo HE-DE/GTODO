@@ -132,6 +132,15 @@ var handleCurrentChange
 
 var tableRowClassName
 
+API({
+  url:'/api/updatedoing',
+  method:'get',
+  params:{
+    id:user.Id,
+  }
+}).then(res=>{
+  console.log(res.data.data)
+})
 
 API({
   url: '/api/getmsg',

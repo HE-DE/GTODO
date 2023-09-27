@@ -161,3 +161,30 @@ func Getdoing(c *gin.Context) {
 		"DTime": DTime,
 	})
 }
+
+// UpdateDoing
+// @Summary 更新用户的所有待办事项的doing时间
+// @Tags 消息模块
+// @param id query string false "id"
+// @Router /updatedoing [get]
+func UpdateDoing(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Query("id"))
+	models.UpdateDoing(int64(id))
+	data1 := models.FindMsgByUser(int64(id))
+	if len(data1) == 0 {
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "暂无消息",
+		})
+		return
+	}
+	DoingTime := make([]float64, len(data1))
+	for i := 0; i < len(data1); i++ {
+		DoingTime[i] = data1[i].DoingTime.Abs().Hours()
+	}
+	c.JSON(200, gin.H{
+		"code": 200,
+		"msg":  "更新成功",
+		"data": DoingTime,
+	})
+}
