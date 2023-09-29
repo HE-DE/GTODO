@@ -34,6 +34,19 @@ var doingTime = await API({
     return res.data.data
 })
 
+var AdminTime = 0
+var UserTime = 0
+
+for (let i = 0; i < msgall.length; i++) {
+    if (msgall[i].Status === 3) {
+        if (msgall[i].AdminId === 0) {
+            UserTime = UserTime + doingTime[i];
+        } else {
+            AdminTime = AdminTime + doingTime[i];
+        }
+    }
+}
+
 //1.通过vue3.x中的refs标签用法，获取到container容器实例
 const chart = ref(null);
 //2.定义在本vue实例中的echarts实例
@@ -52,7 +65,7 @@ let option = {
             name: 'Access From',
             type: 'pie',
             radius: ['40%', '70%'],
-            center:['30%', '50%'],
+            center: ['30%', '50%'],
             avoidLabelOverlap: false,
             label: {
                 show: false,
@@ -69,11 +82,8 @@ let option = {
                 show: false
             },
             data: [
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
+                { value: UserTime, name: "用户本人完成事项时间" },
+                { value: AdminTime, name: "管理员分配事项的时间" }
             ]
         }
     ]
