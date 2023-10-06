@@ -61,7 +61,7 @@ function Timing() {
     router.push('/timing')
 }
 function Finishing(){
-    router.push('/finishing')
+    router.push('/thing')
 }
 
 </script>
